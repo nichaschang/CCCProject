@@ -1,0 +1,141 @@
+.chin-main {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.chin-commoditylist {
+  margin-right: 17px;
+  width: 590px;
+}
+.chin-price {
+  padding: 20px;
+  font-size: 18px;
+  font-weight: bold;
+  height: 65px;
+  border-bottom: 1px solid #a0a0a0;
+  display: flex;
+  justify-content: space-between;
+}
+.chin-commodity-title {
+  display: flex;
+  flex-direction: column;
+}
+.chin-title {
+  display: flex;
+  justify-content: space-between;
+}
+.chin-title-text {
+  span {
+    letter-spacing: 2px;
+    margin-left: 20px;
+    line-height: 50px;
+    color: #050505;
+    font-size: 22px;
+    font-weight: bold;
+    font-family: Helvetica Neue;
+    &:nth-child(2) {
+      margin-left: 44px;
+      font-size: 18px;
+    }
+  }
+}
+.chin-comparegoods {
+  background: #0ac3ae;
+  border: none;
+  color: white;
+  width: 140px;
+  height: 40px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  span {
+    font-size: 16px;
+  }
+}
+.chin-sort {
+  background: #a0a0a0;
+  border: none;
+  color: white;
+  width: 140px;
+  height: 40px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  span {
+    margin-right: 25px;
+  }
+}
+.chin-sort img {
+  margin-right: 10px;
+}
+.chin-comparegoods-sort {
+  display: flex;
+}
+.chin-section {
+  display: flex;
+  flex-direction: row;
+}
+.chin-commodity {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+.chin-commodity-item {
+  margin: 15px;
+  width: 250px;
+  height: 400px;
+  background: #fff;
+  p {
+    margin: 2px 0 12px 0;
+    font-size: 17px;
+    font-weight: bold;
+    color: #050505;
+    text-align: center;
+  }
+}
+.chin-commodity-item h6 {
+  text-align: center;
+  margin: 0;
+  font-size: 15px;
+  font-weight: bold;
+  color: #a0a0a0;
+}
+.chin-commodity-item h5 {
+  font-size: 17px;
+  margin: 0;
+  color: #0dd2c5;
+  text-align: center;
+}
+.chin-star-heart-bag {
+  list-style: none;
+  display: flex;
+  margin: 5px 0 0 15px;
+  padding: 0;
+  align-items: flex-start;
+}
+.chin-star {
+  width: 15px;
+  height: 15px;
+  margin: 0 7.2px 0 0;
+}
+.chin-bag {
+  width: 20.31px;
+  height: 20.18px;
+}
+.chin-heart {
+  width: 20.47px;
+  height: 18.59px;
+  margin: 7px 0 10px 0;
+}
+.chin-watch {
+  margin: 15px 20px;
+  width: 210px;
+  height: 210px;
+}
+.chin-heart-bag {
+  display: flex;
+  flex-direction: column;
+  margin-left: 90px;
+}
