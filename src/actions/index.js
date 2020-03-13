@@ -3,23 +3,45 @@
 // type: ADD_VALUE, MINUS_VALUE
 // ex. action = {type: 'ADD_VALUE', value: 10}
 
+// export const addValueAsync = value => {
+//   return dispatch => {
+//     setTimeout(() => {
+//       console.log('delay 3s to add value')
+//       dispatch(addValue(value))
+//     },1000)
+//   }
+// }
+
 export const addValue = value => ({ type: 'ADD_VALUE', value: value })
 export const minusValue = value => ({ type: 'MINUS_VALUE', value: value })
 
-export const addValueAsync = value => {
-  return dispatch => {
-    setTimeout(() => {
-      console.log('delay 3s to add value')
-      dispatch(addValue(value))
-    },1000)
+
+// 購物車內變更
+export const updateShopCart = (item) => {
+  return async dispatch => {
+    const request = new Request(`http://localhost:5555/shopcart?${item.pid}`, {
+      method: 'PATCH',
+      headers: new Headers({
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      }),
+      body: `{"count":${+item.count+1}}`,
+
+    })
+    const res = await fetch(request)
+    const data = await res.json()
+    
+    console.log('data', data)
+    dispatch(getShopCart())
   }
 }
 
 //跟server要資料
 //呼叫購物車
-export const sendCart =item=>{
-  return {type:'SHOW_CART',value:item}
-}
+export const sendCart =value=>{
+      return {type:'SHOW_CART',value:value}
+  }
+  
 export const getShopCart = item => {
   return async dispatch => {
     const request = new Request('http://localhost:5555/shopcart', {
@@ -34,35 +56,20 @@ export const getShopCart = item => {
     dispatch(sendCart(data))
   }
 }
-//更改購物車內容
-export const updateCart=item=>{
-  return {type:'ADD_ITEM',value:item}
-}
 
-// export const updateShopCart = (item) => {
-//   return async dispatch => {
-//     const request = new Request(`http://localhost:5555/shopcart`, {
-//       method: 'PATCH',
-//       headers: new Headers({
-//         Accept: 'application/json',
-//         'Content-Type': 'application/json',
-//       }),
-//     })
-//     const res = await fetch(request)
-//     const data = await res.json()
-
-//     console.log('data', data)
-//     dispatch(updateCart())
-//   }
-// }
-//呼叫產品
-export const sendProduct =val=>{
-  return {type:'SHOW_PRODUCT',value:val}
-}
-export const getProduct = val => {
+//加入購物車
+export const addShopCart =value=>{
+      return {type:'SHOW_CART',value:value}
+  }
+  
+export const addShopCartItem = item => {
+  // {...item,count:1}
+  
+  console.log({...item,count:1})
   return async dispatch => {
-    const request = new Request('http://localhost:5555/product', {
-      method: 'GET',
+    const request = new Request('http://localhost:5555/shopcart', {
+      method: 'POST',
+      body:[...request,item],
       headers: new Headers({
         Accept: 'application/json',
         'Content-Type': 'application/json',
@@ -70,9 +77,7 @@ export const getProduct = val => {
     })
     const res = await fetch(request)
     const data = await res.json()
-
-    console.log('data', data)
-    dispatch(sendProduct(data))
+    dispatch(addShopCart(data))
   }
 }
 //----stacey 優惠券 -------

@@ -22,7 +22,7 @@ import Commidty from './chin/Commidty'
 import Comparepages from './chin/Comparepages'
 //import mao
 import ShopCartList from './mao/ShopCartList'
-
+import OrderInfo from './mao/OrderInfo'
 //import Irene
 import MemberLogin from './Irene/MemberLogin'
 import MemberEdit from './Irene/MemberEdit'
@@ -88,6 +88,9 @@ function App() {
             </Route>
             <Route path="/ShopCartList">
               <ShopCartList />
+            </Route>
+            <Route path="/OrderInfo">
+              <OrderInfo />
             </Route>
             <Route path="/memberlogin">
               <MemberLogin />

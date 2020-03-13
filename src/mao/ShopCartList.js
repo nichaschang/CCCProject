@@ -1,12 +1,13 @@
-import React, { useEffect } from 'react'
+import React, { useState,useEffect } from 'react'
 import './css/mao.css'
 import MaoCartShopTotal from '../components/MaoCartShopTotal'
-import { withRouter } from 'react-router-dom'
+import { withRouter ,Link} from 'react-router-dom'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { getShopCart } from '../actions/index'
-
+import { getShopCart,addValue,minusValue ,updateShopCart,addShopCartItem} from '../actions/index'
+import MaoShopCartBTN from '../components/MaoShopCartBTN'
 function ShopCartList(props) {
+  console.log(props)
   const productList = [
     {
       id: 1,
@@ -63,37 +64,58 @@ function ShopCartList(props) {
     })
     return val
   }
+
+
+function controlCount(event){
+let val=event.target.nextSibling.value*1
+console.log(val)
+if(val<=0){
+  event.disabled=true
+  console.log('true')
+}else{
+  event.disabled=true
+  console.log('false')
+}
+}
+
   // 必打
   useEffect(() => {
     checkProduct()
     props.getShopCart()
   }, [])
-
+  
   const dataList = props.data.map((v, i) => {
+    
     return (
-      <li className="d-flex Mao-shopcart-check-item col">
+      <li key={v.Id} className="d-flex Mao-shopcart-check-item">
         <img src="https://fakeimg.pl/100/" alt="" />
         <div className="d-flex flex-column justify-content-between Mao-shopcart-check-item-info">
           <p>{checkProduct(v.pId)}</p>
           <div className="d-flex justify-content-between">
             <p style={{ width: '25%' }}>${checkProductPrice(v.pId)}</p>
             <div className="d-flex justify-content-between align-items-center Mao-shopcart-check-item-count">
-              <button className="btn btn-danger">-</button>
+              <button className="btn btn-danger" 
+                onClick={() => {
+                  props.minusValue(1)
+                }}>-</button>
               <input
                 placeholder=""
-                value={v.count}
+                value={props.handlecount+v.count}
                 type="text"
                 id="count-value"
                 className="text-center w-50 m-0"
+                onChange={(val)=>{
+                  console.log(val)
+                }}
               />
-              <button
+              <Link to='./ShopCartList'
                 className="btn btn-danger"
                 onClick={() => {
-                  console.log(v)
+                  props.addValue(1)
                 }}
               >
                 +
-              </button>
+              </Link>
             </div>
           </div>
         </div>
@@ -110,21 +132,30 @@ function ShopCartList(props) {
       </li>
     )
   })
-
+  
+  let productBtn=(
+    productList.map((v,i)=>{
+      return(
+        <button className="btn btn-dark" onClick={()=> props.addShopCartItem(v)}>+</button>
+      )})
+  )
+  
   return (
     <>
       <div className="d-flex">
         <ul>{dataList}</ul>
-        <MaoCartShopTotal />
       </div>
+      {productBtn}
     </>
   )
 }
 
-//
+
+// 告訴redux該怎麼對應它的store中的state到這個元件的props的哪裡
 const mapStateToProps = store => {
   return {
     data: store.getShop,
+    handlecount:store.AddShopCartCount
   }
 }
 
@@ -133,6 +164,8 @@ const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
       getShopCart,
+      addValue,minusValue,updateShopCart,
+      addShopCartItem
     },
     dispatch
   )
